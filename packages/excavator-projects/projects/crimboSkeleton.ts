@@ -17,21 +17,19 @@ import {
   weightAdjustment,
 } from "kolmafia";
 
-import { ExcavatorProject } from "../type";
+import { ExcavatorProject } from "../type.js";
 import { toNormalisedString } from "../utils.js";
 
 type SkellyData = {
-  player: number;
   gotDrop: boolean;
   dropsToday: number;
   location: string;
   monster: string;
   baseWeight: number;
   buffedWeight: number;
-  turn: number;
   phylum: string;
   hasCane: boolean;
-  dropText: string;
+  dropText: number;
 };
 
 const knuckleTexts = [
@@ -50,7 +48,6 @@ function spadeSkeleton(encounter: string, page: string): SkellyData | null {
   if (myFamiliar() !== Familiar.get("Skeleton of Crimbo Past")) return null;
 
   return {
-    player: Number(myId()),
     gotDrop: page.includes("You acquire an item: <b>knucklebone</b>"),
     dropsToday: Number(getProperty("_knuckleboneDrops")),
     location: toNormalisedString(myLocation()),
@@ -58,7 +55,6 @@ function spadeSkeleton(encounter: string, page: string): SkellyData | null {
     buffedWeight:
       familiarWeight(Familiar.get("Skeleton of Crimbo Past")) +
       weightAdjustment(),
-    turn: myTotalTurnsSpent(),
     hasCane: haveEquipped(
       Item.get("small peppermint-flavored sugar walking crook"),
     ),
@@ -76,5 +72,5 @@ export const SKELETON_OF_CRIMBO_PAST: ExcavatorProject = {
   hooks: {
     COMBAT_ROUND: spadeSkeleton,
   },
-  since: 28774, // tracking for knucklebone drops
+  since: 28777, // correct tracking for knucklebone drops
 };
