@@ -3,7 +3,7 @@ UPDATE "SpadingData"
 SET "data" = jsonb_set(
     "data",
     '{skeleton}',
-    (
+    to_jsonb(
       ("data"->>'monster') IN (
         '[1346]bog skeleton',
         '[198]Bonerdagon',
@@ -41,6 +41,6 @@ SET "data" = jsonb_set(
         '[-85]The Unkillable Skeleton (Hard Mode)',
         '[186]toothy sklelton'
       )
-    )::jsonb
+    )
 )
 WHERE "project" = 'Skeleton of Crimbo Past';
