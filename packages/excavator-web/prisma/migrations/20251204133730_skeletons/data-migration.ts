@@ -13,8 +13,6 @@ async function main() {
     });
 
     for (const datum of data) {
-      if (datum.data.skeleton !== undefined) continue;
-
       await tx.spadingData.update({
         where: { id: datum.id },
         data: {
