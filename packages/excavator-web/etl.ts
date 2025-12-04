@@ -140,9 +140,15 @@ function applyFixes(data: SpadingDataSubmission) {
     data["source"] = "Unknown";
   }
 
+  // 2024-10-17: Refuse to collect bad data for snowglobe
   if (data._PROJECT === "KoL Con 13 Snowglobe" && "type" in data) {
     if (data.type === "substat") return null;
     delete data["type"];
+  }
+
+  // 2025-12-04: Ensure skeleton field is present
+  if (data._PROJECT === "Skeleton of Crimbo Past" && !("skeleton" in data)) {
+    return null;
   }
 
   return data;
