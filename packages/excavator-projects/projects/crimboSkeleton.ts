@@ -45,7 +45,8 @@ function spadeSkeleton(encounter: string, page: string): SkellyData | null {
   if (!page.includes("WINWINWIN")) return null;
 
   const monster = lastMonster();
-  if (monster === Monster.get("[2502]darkness")) return null;
+  const monsterName = toNormalisedString(monster);
+  if (/\[\d+\]darkness/.test(monsterName)) return null;
 
   return {
     gotDrop: page.includes("You acquire an item: <b>knucklebone</b>"),
@@ -60,7 +61,7 @@ function spadeSkeleton(encounter: string, page: string): SkellyData | null {
     ),
     phylum: monster.phylum.toString(),
     skeleton: monster.attributes.includes("SKELETON"),
-    monster: toNormalisedString(monster),
+    monster: monsterName,
     dropText: extractKnuckleText(page),
   };
 }
