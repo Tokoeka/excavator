@@ -6,6 +6,7 @@ import {
   haveEquipped,
   Item,
   lastMonster,
+  Monster,
   myFamiliar,
   myLocation,
   weightAdjustment,
@@ -44,6 +45,7 @@ function spadeSkeleton(encounter: string, page: string): SkellyData | null {
   if (!page.includes("WINWINWIN")) return null;
 
   const monster = lastMonster();
+  if (monster === Monster.get("[2502]darkness")) return null;
 
   return {
     gotDrop: page.includes("You acquire an item: <b>knucklebone</b>"),
